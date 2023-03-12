@@ -12,9 +12,9 @@ function createPromise(position, delay) {
       const shouldResolve = Math.random() > 0.3;
 
       if (shouldResolve) {
-        resolve({ position, delay });
+        resolve({ position });
       } else {
-        reject({ position, delay });
+        reject({ position });
       }
     }, delay);
   });
@@ -29,16 +29,16 @@ function onSubmit(event) {
   
   const intervalId = setInterval(() => {
     position += 1
-    
+
     if (position >= amount.value) {
     clearInterval(intervalId);
     }
     createPromise(position, delay.value)
-    .then(({ position, delay }) => {
-      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    .then(({ position }) => {
+      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${step.value}ms`);
     })
-    .catch(({ position, delay }) => {
-      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+    .catch(({ position }) => {
+      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${step.value}ms`);
     });
   }, step.value)
   }
